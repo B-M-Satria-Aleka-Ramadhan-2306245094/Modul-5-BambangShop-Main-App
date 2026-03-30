@@ -77,15 +77,17 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
-1.
-Pada konsep Observer pattern, Subscriber biasanya dibuat sebagai interface agar fleksibel dan mendukung berbagai jenis subscriber dengan implementasi berbeda. Namun, dalam kasus BambangShop ini, kebutuhan sistem masih sederhana karena subscriber hanya merepresentasikan data (URL dan nama) serta perilaku yang seragam. Oleh karena itu, penggunaan satu model struct sudah cukup dan tidak wajib menggunakan trait. Penggunaan trait baru menjadi penting jika terdapat banyak variasi perilaku subscriber yang berbeda.
+1. Pada konsep Observer pattern, Subscriber biasanya dibuat sebagai interface agar fleksibel dan mendukung berbagai jenis subscriber dengan implementasi berbeda. Namun, dalam kasus BambangShop ini, kebutuhan sistem masih sederhana karena subscriber hanya merepresentasikan data (URL dan nama) serta perilaku yang seragam. Oleh karena itu, penggunaan satu model struct sudah cukup dan tidak wajib menggunakan trait. Penggunaan trait baru menjadi penting jika terdapat banyak variasi perilaku subscriber yang berbeda.
 
-2.
-Karena id pada Program dan url pada Subscriber harus unik, penggunaan Vec kurang optimal karena membutuhkan pencarian manual (linear search) untuk memastikan keunikan. Hal ini tidak efisien terutama jika jumlah data bertambah besar. Oleh karena itu, penggunaan DashMap lebih tepat karena secara langsung mendukung penyimpanan key-value dengan key unik dan memiliki performa akses yang lebih cepat (O(1)).
+2. Karena id pada Program dan url pada Subscriber harus unik, penggunaan Vec kurang optimal karena membutuhkan pencarian manual (linear search) untuk memastikan keunikan. Hal ini tidak efisien terutama jika jumlah data bertambah besar. Oleh karena itu, penggunaan DashMap lebih tepat karena secara langsung mendukung penyimpanan key-value dengan key unik dan memiliki performa akses yang lebih cepat (O(1)).
 
-3.
-Singleton pattern hanya memastikan bahwa sebuah instance bersifat tunggal, tetapi tidak secara otomatis menjamin thread-safety. Dalam kasus ini, karena aplikasi berjalan secara concurrent, kita tetap membutuhkan struktur data yang thread-safe seperti DashMap. Jadi, meskipun secara konsep kita menggunakan pola Singleton untuk menyimpan data global, kita tetap memerlukan DashMap untuk menangani akses data secara aman dalam lingkungan multi-threaded.
+3. Singleton pattern hanya memastikan bahwa sebuah instance bersifat tunggal, tetapi tidak secara otomatis menjamin thread-safety. Dalam kasus ini, karena aplikasi berjalan secara concurrent, kita tetap membutuhkan struktur data yang thread-safe seperti DashMap. Jadi, meskipun secara konsep kita menggunakan pola Singleton untuk menyimpan data global, kita tetap memerlukan DashMap untuk menangani akses data secara aman dalam lingkungan multi-threaded.
 
 #### Reflection Publisher-2
+1. Pemisahan antara Model, Service, dan Repository dilakukan untuk menerapkan prinsip Separation of Concerns. Model hanya berfokus pada representasi data, Repository menangani akses dan penyimpanan data, sedangkan Service mengelola logika bisnis. Dengan pemisahan ini, kode menjadi lebih terstruktur, mudah dipahami, serta lebih mudah untuk diuji dan dikembangkan. Selain itu, perubahan pada satu bagian (misalnya database) tidak akan terlalu memengaruhi bagian lain.
+
+2. Jika hanya menggunakan Model, maka semua tanggung jawab seperti penyimpanan data, logika bisnis, dan interaksi antar objek akan bercampur dalam satu tempat. Hal ini akan membuat setiap model seperti Program, Subscriber, dan Notification menjadi sangat kompleks dan sulit dipelihara. Interaksi antar model juga akan semakin rumit karena masing-masing model harus saling mengatur logika satu sama lain, sehingga meningkatkan kemungkinan bug dan membuat kode sulit dikembangkan di masa depan.
+
+3. Postman sangat membantu dalam menguji endpoint API yang telah dibuat tanpa perlu membuat frontend terlebih dahulu. Dengan Postman, saya dapat mengirim berbagai jenis HTTP request seperti GET, POST, dan DELETE serta melihat response secara langsung. Fitur yang saya rasa sangat membantu adalah Collection untuk mengelompokkan endpoint, Environment Variables untuk mengatur konfigurasi seperti base URL, serta Automated Testing untuk memastikan endpoint bekerja sesuai harapan. Tools ini sangat berguna untuk proyek kelompok maupun pengembangan software di masa depan karena mempermudah proses debugging dan pengujian API.
 
 #### Reflection Publisher-3
